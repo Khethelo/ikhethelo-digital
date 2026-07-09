@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact iKHETHELO WORX | Discuss Your Project</title>
+    <meta
+      name="description"
+      content="Tell iKHETHELO WORX about your website, web application or custom software project."
+    />
+    <meta property="og:title" content="Contact iKHETHELO WORX | Discuss Your Project" />
+    <meta property="og:description" content="Discuss a website, web application or custom software project with iKHETHELO WORX." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ikhetheloworx.co.za/contact.html" />
+    <meta property="og:image" content="https://ikhetheloworx.co.za/assets/images/ikhethelo-worx-logo-dark.png" />
+    <link rel="icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body data-page="contact">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="site-header" data-site-header>
+      <nav class="site-nav container" aria-label="Primary navigation">
+        <a class="brand-mark" href="index.html"><img src="assets/images/ikhethelo-worx-logo-dark.png" alt="iKHETHELO WORX" /></a>
+        <button class="nav-toggle" type="button" aria-controls="site-menu" aria-expanded="false"><span class="nav-toggle-line"></span><span class="nav-toggle-line"></span><span class="nav-toggle-line"></span><span class="visually-hidden">Toggle navigation</span></button>
+        <div class="nav-menu" id="site-menu"><a class="nav-link" data-nav="home" href="index.html">Home</a><a class="nav-link" data-nav="services" href="services.html">Services</a><a class="nav-link" data-nav="about" href="about.html">About</a><a class="nav-link" data-nav="contact" href="contact.html">Contact</a><a class="btn-brand nav-cta" href="contact.html">Let's Build</a></div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="page-hero section-pad">
+        <div class="container">
+          <p class="eyebrow">Contact</p>
+          <h1>Let's build something useful.</h1>
+          <p>
+            Tell us about your business, project or idea. We'll review your requirements and get
+            back to you to discuss the next steps.
+          </p>
+        </div>
+      </section>
+
+      <section class="section-pad border-section">
+        <div class="container">
+          <div class="row g-4">
+            <div class="col-lg-4">
+              <aside class="contact-aside reveal">
+                <h2>Start the conversation.</h2>
+                <p>
+                  Use the form for project enquiries, or start a WhatsApp chat if you have a quick
+                  first question.
+                </p>
+                <div class="contact-list">
+                  <a href="#" data-contact-link="email"><i class="bi bi-envelope" aria-hidden="true"></i><span data-contact="email"></span></a>
+                  <a href="#" data-contact-link="phone"><i class="bi bi-telephone" aria-hidden="true"></i><span data-contact="phone"></span></a>
+                  <span><i class="bi bi-geo-alt" aria-hidden="true"></i><span data-contact="address"></span></span>
+                </div>
+                <a class="btn-quiet mt-4" href="#" data-whatsapp>Chat on WhatsApp</a>
+              </aside>
+            </div>
+            <div class="col-lg-8">
+              <form class="contact-form reveal" id="project-form" novalidate>
+                <div class="form-success" id="form-success" role="status" tabindex="-1" hidden>
+                  Thanks. Your enquiry has been received. We'll review it and get back to you.
+                </div>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="fullName">Full Name</label>
+                    <input id="fullName" name="fullName" type="text" autocomplete="name" />
+                    <small class="field-error" data-error-for="fullName"></small>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="businessName">Business Name</label>
+                    <input id="businessName" name="businessName" type="text" autocomplete="organization" />
+                    <small class="field-error" data-error-for="businessName"></small>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="email">Email Address</label>
+                    <input id="email" name="email" type="email" autocomplete="email" />
+                    <small class="field-error" data-error-for="email"></small>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="phone">Phone Number</label>
+                    <input id="phone" name="phone" type="tel" autocomplete="tel" />
+                    <small class="field-error" data-error-for="phone"></small>
+                  </div>
+                  <div class="col-12">
+                    <label for="need">What do you need?</label>
+                    <select id="need" name="need">
+                      <option value="">Select an option</option>
+                      <option>Business Website</option>
+                      <option>Web Application</option>
+                      <option>Custom Software</option>
+                      <option>Existing Software Support</option>
+                      <option>Not Sure Yet</option>
+                    </select>
+                    <small class="field-error" data-error-for="need"></small>
+                  </div>
+                  <div class="col-12">
+                    <label for="projectDetails">Tell us about your project</label>
+                    <textarea id="projectDetails" name="projectDetails" rows="6"></textarea>
+                    <small class="field-error" data-error-for="projectDetails"></small>
+                  </div>
+                  <div class="col-12">
+                    <label for="budget">Estimated Budget</label>
+                    <select id="budget" name="budget">
+                      <option value="">Select an option</option>
+                      <option>Under R5,000</option>
+                      <option>R5,000 - R10,000</option>
+                      <option>R10,000 - R25,000</option>
+                      <option>R25,000 - R50,000</option>
+                      <option>R50,000+</option>
+                      <option>Not sure yet</option>
+                    </select>
+                  </div>
+                </div>
+                <button class="btn-brand form-submit" type="submit">Send Project Enquiry</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-5 footer-intro"><a class="footer-wordmark" href="index.html">iKHETHELO WORX</a><p class="footer-tagline">WEBsites. SOFTWARE. SOLUTIONS.</p><p class="footer-copy">A Durban-based web and software studio building clean, practical digital products for growing businesses.</p></div>
+          <div class="col-6 col-lg-2"><h2>Navigation</h2><a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+          <div class="col-6 col-lg-2 footer-service-list"><h2>Services</h2><span>Professional Websites</span><span>Web Applications</span><span>Custom Software</span></div>
+          <div class="col-lg-3 footer-contact"><h2>Contact</h2><a href="#" data-contact-link="email"><span data-contact="email"></span></a><a href="#" data-contact-link="phone"><span data-contact="phone"></span></a><span data-contact="address"></span></div>
+        </div>
+        <div class="footer-bottom"><p>&copy; <span data-current-year></span> iKHETHELO WORX. All rights reserved.</p></div>
+      </div>
+    </footer>
+    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/contact.js" defer></script>
+  </body>
+</html>

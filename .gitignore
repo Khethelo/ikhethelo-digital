@@ -1,0 +1,27 @@
+# Dependencies and package manager output
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local server/build output
+dist/
+tmp/
+.cache/
+.sass-cache/
+coverage/
+__screenshots__/
+
+# Editors
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+.history/
+
+# System files
+.DS_Store
+Thumbs.db
