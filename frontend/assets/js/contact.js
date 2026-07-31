@@ -3,6 +3,23 @@
 const FORMSPREE_FORM_ID = 'xnjeypno';
 const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_FORM_ID}`;
 
+const CONTACT_MODAL_CONTENT = {
+  success: {
+    iconClass: 'bi-check-circle-fill',
+    heading: 'Enquiry sent',
+    message: 'Thank you for contacting iKhethelo Digital. We’ll get back to you as soon as possible.',
+    primaryLabel: 'Done',
+    showSecondary: false,
+  },
+  error: {
+    iconClass: 'bi-x-circle-fill',
+    heading: 'Unable to send enquiry',
+    message: 'Something went wrong while sending your enquiry. Please check your connection and try again.',
+    primaryLabel: 'Try again',
+    showSecondary: true,
+  },
+};
+
 const getField = (form, name) => form.elements.namedItem(name);
 
 const getFieldValue = (form, name) => {
@@ -13,13 +30,20 @@ const getFieldValue = (form, name) => {
 const setFieldError = (form, name, message) => {
   const field = getField(form, name);
   const error = form.querySelector(`[data-error-for="${name}"]`);
+  const hasError = Boolean(message);
 
   if (!field || !error) {
     return;
   }
 
-  field.classList.toggle('is-invalid', Boolean(message));
-  field.setAttribute('aria-invalid', String(Boolean(message)));
+  field.classList.toggle('is-invalid', hasError);
+
+  if (hasError) {
+    field.setAttribute('aria-invalid', 'true');
+  } else {
+    field.removeAttribute('aria-invalid');
+  }
+
   error.textContent = message;
 };
 
@@ -34,28 +58,17 @@ const clearFieldErrors = (form) => {
   });
 };
 
-const setFormStatus = (status, type, message, shouldFocus = false) => {
+const setLiveStatus = (status, message) => {
   if (!status) {
     return;
   }
 
-  status.className = `form-status form-status-${type}`;
   status.textContent = message;
   status.hidden = !message;
-
-  if (shouldFocus && message) {
-    status.focus?.();
-  }
 };
 
-const clearFormStatus = (status) => {
-  if (!status) {
-    return;
-  }
-
-  status.className = 'form-status';
-  status.textContent = '';
-  status.hidden = true;
+const clearLiveStatus = (status) => {
+  setLiveStatus(status, '');
 };
 
 const setSubmitState = (form, submitButton, isSubmitting) => {
@@ -71,7 +84,17 @@ const setSubmitState = (form, submitButton, isSubmitting) => {
   form.setAttribute('aria-busy', String(isSubmitting));
 };
 
+const SOUTH_AFRICAN_PHONE_ERROR = 'Enter a valid South African contact number, for example 082 123 4567.';
+
 const validateEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+const normalizeSouthAfricanContactNumber = (value) => value.replace(/[\s\-()]/g, '');
+
+const validateSouthAfricanContactNumber = (value) => {
+  const normalizedValue = normalizeSouthAfricanContactNumber(value);
+
+  return /^0\d{9}$/.test(normalizedValue) || /^\+27\d{9}$/.test(normalizedValue);
+};
 
 const getProjectFormValues = (form) => {
   const firstName = getFieldValue(form, 'firstName');
@@ -96,7 +119,7 @@ const validateProjectForm = (form) => {
     firstName: values.firstName.length >= 2 ? '' : 'Please enter your first name.',
     lastName: values.lastName.length >= 2 ? '' : 'Please enter your last name.',
     email: validateEmail(values.email) ? '' : 'Please enter a valid email address.',
-    phone: values.phone.length >= 7 ? '' : 'Please enter a valid phone number.',
+    phone: validateSouthAfricanContactNumber(values.phone) ? '' : SOUTH_AFRICAN_PHONE_ERROR,
     need: values.need ? '' : 'Please select what you need.',
     projectDetails: '',
   };
@@ -153,16 +176,86 @@ const submitToFormspree = async (values) => {
   }
 };
 
+const openContactModal = (modal, state) => {
+  const content = CONTACT_MODAL_CONTENT[state];
+  const title = modal.querySelector('#contact-modal-title');
+  const message = modal.querySelector('#contact-modal-message');
+  const icon = modal.querySelector('[data-contact-modal-icon]');
+  const primaryButton = modal.querySelector('[data-contact-modal-primary]');
+  const secondaryButton = modal.querySelector('[data-contact-modal-secondary]');
+
+  modal.dataset.state = state;
+  modal.classList.toggle('contact-modal-success', state === 'success');
+  modal.classList.toggle('contact-modal-error', state === 'error');
+
+  if (title) {
+    title.textContent = content.heading;
+  }
+
+  if (message) {
+    message.textContent = content.message;
+  }
+
+  if (icon) {
+    icon.className = `bi ${content.iconClass}`;
+  }
+
+  if (primaryButton) {
+    primaryButton.textContent = content.primaryLabel;
+  }
+
+  if (secondaryButton) {
+    secondaryButton.hidden = !content.showSecondary;
+  }
+
+  if (typeof modal.showModal === 'function') {
+    modal.showModal();
+  } else {
+    modal.setAttribute('open', '');
+  }
+
+  primaryButton?.focus();
+};
+
+const closeContactModal = (modal) => {
+  if (modal.open && typeof modal.close === 'function') {
+    modal.close();
+    return;
+  }
+
+  modal.removeAttribute('open');
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('#project-form');
   const status = document.querySelector('#form-status');
+  const modal = document.querySelector('#contact-result-dialog');
 
-  if (!form || !status) {
+  if (!form || !status || !modal) {
     return;
   }
 
   const submitButton = form.querySelector('[type="submit"]');
+  const modalPrimaryButton = modal.querySelector('[data-contact-modal-primary]');
+  const modalSecondaryButton = modal.querySelector('[data-contact-modal-secondary]');
   let isSubmitting = false;
+
+  modal.addEventListener('close', () => {
+    submitButton?.focus();
+  });
+
+  modalPrimaryButton?.addEventListener('click', () => {
+    const state = modal.dataset.state;
+    closeContactModal(modal);
+
+    if (state === 'error') {
+      window.setTimeout(() => form.requestSubmit(), 0);
+    }
+  });
+
+  modalSecondaryButton?.addEventListener('click', () => {
+    closeContactModal(modal);
+  });
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -171,10 +264,10 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    clearFormStatus(status);
+    clearLiveStatus(status);
 
     if (!validateProjectForm(form)) {
-      setFormStatus(status, 'error', 'Please correct the highlighted fields and try again.');
+      setLiveStatus(status, 'Please correct the highlighted fields and try again.');
       const firstInvalid = form.querySelector('.is-invalid');
       firstInvalid?.focus();
       return;
@@ -184,16 +277,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     isSubmitting = true;
     setSubmitState(form, submitButton, true);
-    setFormStatus(status, 'loading', 'Sending your enquiry...');
+    setLiveStatus(status, 'Sending your enquiry...');
 
     try {
       await submitToFormspree(values);
       form.reset();
       clearFieldErrors(form);
-      setFormStatus(status, 'success', 'Thanks. Your enquiry has been received. We will review it and get back to you.', true);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Something went wrong while sending your enquiry.';
-      setFormStatus(status, 'error', `${message} Please try again or contact us directly.`, true);
+      setLiveStatus(status, CONTACT_MODAL_CONTENT.success.message);
+      openContactModal(modal, 'success');
+    } catch {
+      setLiveStatus(status, CONTACT_MODAL_CONTENT.error.message);
+      openContactModal(modal, 'error');
     } finally {
       isSubmitting = false;
       setSubmitState(form, submitButton, false);
@@ -203,8 +297,16 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('input', (event) => {
     const field = event.target;
 
-    if (field.name && field.name !== '_gotcha') {
-      setFieldError(form, field.name, '');
+    if (!field.name || field.name === '_gotcha') {
+      return;
     }
+
+    if (field.name === 'phone') {
+      const shouldKeepError = field.classList.contains('is-invalid') && !validateSouthAfricanContactNumber(field.value);
+      setFieldError(form, 'phone', shouldKeepError ? SOUTH_AFRICAN_PHONE_ERROR : '');
+      return;
+    }
+
+    setFieldError(form, field.name, '');
   });
 });
