@@ -1079,6 +1079,202 @@ p {
   }
 }
 
+.referral-hero {
+  padding-top: clamp(4.2rem, 8vw, 6.8rem);
+}
+
+.referral-hero h1 {
+  font-size: clamp(3rem, 5vw, 5.1rem);
+  line-height: 0.98;
+  margin-bottom: 1.4rem;
+  max-width: 800px;
+}
+
+.referral-hero h1 span {
+  color: var(--blue-light);
+  display: inline;
+}
+
+.referral-hero strong,
+.referral-step strong {
+  color: var(--white);
+}
+
+.referral-hero-card,
+.referral-step,
+.referral-form-intro,
+.terms-panel {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.028));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.referral-hero-card {
+  background:
+    radial-gradient(circle at 80% 0%, rgba(37, 99, 235, 0.32), transparent 18rem),
+    linear-gradient(145deg, rgba(17, 24, 39, 0.96), rgba(13, 27, 42, 0.94));
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow);
+  margin-left: auto;
+  max-width: 420px;
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.referral-card-kicker {
+  color: var(--blue-light);
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+
+.reward-number {
+  color: var(--white);
+  display: block;
+  font-family: "Space Grotesk", Inter, system-ui, sans-serif;
+  font-size: clamp(4.6rem, 10vw, 7rem);
+  line-height: 0.9;
+  margin-bottom: 1rem;
+}
+
+.referral-highlight-list,
+.terms-panel ul {
+  color: rgba(255, 255, 255, 0.78);
+  display: grid;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 1.2rem 0 0;
+  padding: 0;
+}
+
+.referral-highlight-list li,
+.terms-panel li {
+  padding-left: 1.15rem;
+  position: relative;
+}
+
+.referral-highlight-list li::before,
+.terms-panel li::before {
+  background: var(--blue);
+  border-radius: 50%;
+  content: "";
+  height: 6px;
+  left: 0;
+  position: absolute;
+  top: 0.62rem;
+  width: 6px;
+}
+
+.referral-steps {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.referral-step {
+  height: 100%;
+  padding: 1.25rem;
+}
+
+.referral-step span {
+  color: var(--blue-light);
+  display: block;
+  font-family: "Space Grotesk", Inter, system-ui, sans-serif;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.referral-step h3,
+.referral-form-intro h2,
+.terms-panel h3,
+.form-section-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.referral-form-grid {
+  align-items: flex-start;
+}
+
+.referral-form-intro {
+  padding: clamp(1.3rem, 3vw, 2rem);
+  position: sticky;
+  top: 140px;
+}
+
+.terms-panel {
+  margin-top: 1.4rem;
+  padding: 1.2rem;
+}
+
+.terms-panel h3 {
+  font-size: 1rem;
+}
+
+.referral-form .row + .form-section-title {
+  border-top: 1px solid var(--border);
+  margin-top: 1.6rem;
+  padding-top: 1.6rem;
+}
+
+.form-section-title {
+  color: var(--white);
+}
+
+.checkbox-field {
+  align-items: flex-start;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.contact-form .checkbox-field input[type="checkbox"] {
+  accent-color: var(--blue);
+  flex: 0 0 auto;
+  height: 1.1rem;
+  margin-top: 0.2rem;
+  min-height: 1.1rem;
+  padding: 0;
+  width: 1.1rem;
+}
+
+.checkbox-field label {
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 600;
+  line-height: 1.55;
+  margin-bottom: 0;
+}
+
+.checkbox-field a {
+  color: var(--blue-light);
+  text-decoration: none;
+}
+
+.checkbox-field a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 991.98px) {
+  .referral-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .referral-form-intro {
+    position: static;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .referral-hero-card {
+    margin-left: 0;
+    max-width: none;
+  }
+
+  .referral-steps {
+    grid-template-columns: 1fr;
+  }
+}
 .site-footer {
   background:
     linear-gradient(180deg, rgba(10, 15, 26, 0.1), rgba(10, 15, 26, 0.64)),
