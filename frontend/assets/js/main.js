@@ -30,7 +30,9 @@ const setContactDetails = () => {
   });
 
   document.querySelectorAll('[data-whatsapp]').forEach((element) => {
-    element.setAttribute('href', buildWhatsAppUrl());
+    const message = element.dataset.whatsappMessage || undefined;
+
+    element.setAttribute('href', buildWhatsAppUrl(message));
     element.setAttribute('target', '_blank');
     element.setAttribute('rel', 'noopener');
   });
