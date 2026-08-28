@@ -1,7 +1,7 @@
 const IW_CONFIG = {
   businessName: 'iKhethelo Digital',
   // Placeholder contact details. Replace these with final business contact information.
-  email: 'info@ikhethelodigital.co.za.com',
+  email: 'info@ikhethelodigital.co.za',
   phone: '+27 84 351 7720',
   whatsAppNumber: '27843517720',
   address: 'Durban, South Africa',
