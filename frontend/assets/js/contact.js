@@ -2,6 +2,8 @@
 // Example endpoint produced by this value: https://formspree.io/f/YOUR_FORM_ID
 const FORMSPREE_FORM_ID = 'xnjeypno';
 const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_FORM_ID}`;
+// Formspree's Email action should target this address; the payload records the expected destination.
+const CONTACT_RECIPIENT_EMAIL = window.IW_CONFIG?.email || 'info@ikhethelodigital.co.za';
 
 const CONTACT_MODAL_CONTENT = {
   success: {
@@ -140,6 +142,7 @@ const buildFormspreePayload = (values) => ({
   project_need: values.need,
   project_details: values.projectDetails,
   estimated_budget: values.budget || 'Not provided',
+  recipient_email: CONTACT_RECIPIENT_EMAIL,
   _subject: `New iKhethelo Digital enquiry from ${values.fullName}`,
   _gotcha: values.honeypot,
 });

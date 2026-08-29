@@ -2,6 +2,8 @@
 // Form endpoint produced by this ID: https://formspree.io/f/xdenqddj
 const REFERRAL_FORMSPREE_FORM_ID = 'xdenqddj';
 const REFERRAL_FORMSPREE_ENDPOINT = `https://formspree.io/f/${REFERRAL_FORMSPREE_FORM_ID}`;
+// Formspree's Email action should target this address; the payload records the expected destination.
+const REFERRAL_RECIPIENT_EMAIL = window.IW_CONFIG?.email || 'info@ikhethelodigital.co.za';
 
 const REFERRAL_MODAL_CONTENT = {
   success: {
@@ -134,6 +136,7 @@ const buildReferralPayload = (values) => ({
   referred_contact_email: values.contactEmail || 'Not provided',
   referred_contact_phone: values.contactPhone || 'Not provided',
   terms_accepted: values.termsAccepted ? 'Yes' : 'No',
+  recipient_email: REFERRAL_RECIPIENT_EMAIL,
   _subject: `New iKhethelo Digital referral: ${values.businessName}`,
   _gotcha: values.honeypot,
 });
